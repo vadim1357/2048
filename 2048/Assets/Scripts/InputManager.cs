@@ -17,5 +17,17 @@ public class InputManager : MonoBehaviour
         {
             gameField.SwipeLeft();
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            gameField.SwipeRight();
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            gameField.SwipeUp();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            gameField.SwipeDown();
+        }
     }
 }

@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class BackGroundCell : MonoBehaviour
 {
-    [SerializeField] private CellPlay cellPlayPrefab;
+    [SerializeField] public  CellPlay CellPlayPrefab { get; private set; }
 
     public bool IsFree 
     {
         get 
         {
-            return cellPlayPrefab == null; 
+            return CellPlayPrefab == null; 
         }
     }
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.tag == "CellPlay")
         {
-            cellPlayPrefab = collision.gameObject.GetComponent<CellPlay>();
+            CellPlayPrefab = collision.gameObject.GetComponent<CellPlay>();
         }
     }
     public void AttachCellPlay(CellPlay cell)
     {
-        cellPlayPrefab = cell;
+        CellPlayPrefab = cell;
     }
 }
