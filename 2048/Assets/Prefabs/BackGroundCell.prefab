@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0079983, y: 1, z: 3.911339}
-  m_Center: {x: 0.0039983424, y: 0, z: 0.07375002}
+  m_Size: {x: 0.5, y: 0.5, z: 3.911339}
+  m_Center: {x: 0, y: 0, z: 0.07375002}
 --- !u!114 &7066545975042761149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,4 +108,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 045231cfaffed4145ab96ed7f6f415c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPlayPrefab: {fileID: 0}

@@ -6,12 +6,21 @@ using UnityEngine;
 public class CellPlay : MonoBehaviour
 {
     [SerializeField] private MeshRenderer meshRender;
-    public int powerOfTwo;
+    
     [SerializeField] private Rigidbody rigid;
 
     [SerializeField] private List<CellStyle> cellStyles;
 
+    public Vector3 Velocity { get; private set; }
+
     private int index;
+    public int PowerOfTwo 
+    {
+        get
+        {
+            return index;
+        }
+    }
     private void OnEnable()
     {
         index = 0;
@@ -21,25 +30,32 @@ public class CellPlay : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            index++;
-            ApplyStyle(index);
+            NextIndex();
+        }
+        if(rigid.velocity != Velocity)
+        {
+            rigid.velocity = Vector3.zero;
         }
     }
     public void SwipeLeft()
     {
         rigid.velocity = Vector3.left*10;
+        Velocity = Vector3.left * 10;
     }
     public void SwipeRight()
     {
         rigid.velocity = Vector3.right * 10;
+        Velocity = Vector3.right * 10;
     }
     public void SwipeUp()
     {
         rigid.velocity = Vector3.up * 10;
+        Velocity = Vector3.up * 10;
     }
     public void SwipeDown()
     {
         rigid.velocity = Vector3.down * 10;
+        Velocity = Vector3.down * 10;
     }
     public void ApplyStyle(int styleIndex)
     {
@@ -53,7 +69,15 @@ public class CellPlay : MonoBehaviour
         StyleIndex %= cellStyles.Count;
         return cellStyles[StyleIndex];
     }
-
+    public void NextIndex()
+    {
+        index++;
+        ApplyStyle(index);
+    }
+    public bool IsMoving()
+    {
+        return rigid.velocity.magnitude > 0.01f; 
+    }
 }
 
 

@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class GameField : MonoBehaviour
 {
-    [SerializeField]  private BackGroundCell cellPrefab;
+    [SerializeField] private BackGroundCell cellPrefab;
     [SerializeField] private CellPlay cellPlayPrefab;
     [SerializeField] private int height;
     [SerializeField] private int width;
     [SerializeField] private int countStartCell;
     private List<List<BackGroundCell>> field = new List<List<BackGroundCell>>();
     [SerializeField] private GameObject borderPrefab;
-    
+    private bool inProgress;
+
+
     private void Start()
     {
-        
+
         CreateField(height, width);
-        for(int i = 0; i< countStartCell; i++)
+        for (int i = 0; i < countStartCell; i++)
+        {
+            GenerateRandomCell();
+        }
+    }
+    private void Update()
+    {
+        if (inProgress && FinishTurn() ) 
         {
             GenerateRandomCell();
         }
@@ -24,14 +33,14 @@ public class GameField : MonoBehaviour
 
     public void CreateField(int height, int width)
     {
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
             field.Add(new List<BackGroundCell>());
-            for(int y = 0; y< height; y++)
+            for (int y = 0; y < height; y++)
             {
-                
+
                 BackGroundCell newCell = Instantiate(cellPrefab);
-                newCell.transform.position = new Vector3(-((width-1)*0.5f)+x, (-(height-1)*0.5f)+y, 0);
+                newCell.transform.position = new Vector3(-((width - 1) * 0.5f) + x, (-(height - 1) * 0.5f) + y, 0);
                 field[x].Add(newCell);
             }
         }
@@ -45,7 +54,7 @@ public class GameField : MonoBehaviour
         }
         BackGroundCell randomCell = field[Random.Range(0, width)][Random.Range(0, height)];
         Vector3 randomPosition = randomCell.transform.position;
-        
+
         while (!randomCell.IsFree)
         {
             randomCell = field[Random.Range(0, width)][Random.Range(0, height)];
@@ -63,13 +72,13 @@ public class GameField : MonoBehaviour
         {
             return false;
         }
-        
+
     }
     public bool CheckGameOver()
     {
-        foreach(var lineX in field)
+        foreach (var lineX in field)
         {
-            foreach(var backGroundCell in lineX)
+            foreach (var backGroundCell in lineX)
             {
                 if (backGroundCell.IsFree)
                 {
@@ -77,11 +86,15 @@ public class GameField : MonoBehaviour
                 }
             }
         }
-        
+
         return true;
     }
     public void SwipeLeft()
     {
+        if (inProgress)
+        {
+            return;
+        }
         foreach (var lineX in field)
         {
             foreach (var backGroundCell in lineX)
@@ -89,12 +102,17 @@ public class GameField : MonoBehaviour
                 if (!backGroundCell.IsFree)
                 {
                     backGroundCell.CellPlayPrefab.SwipeLeft();
+                    inProgress = true;
                 }
             }
         }
     }
     public void SwipeRight()
     {
+        if (inProgress)
+        {
+            return;
+        }
         foreach (var lineX in field)
         {
             foreach (var backGroundCell in lineX)
@@ -102,12 +120,17 @@ public class GameField : MonoBehaviour
                 if (!backGroundCell.IsFree)
                 {
                     backGroundCell.CellPlayPrefab.SwipeRight();
+                    inProgress = true;
                 }
             }
         }
     }
     public void SwipeUp()
     {
+        if (inProgress)
+        {
+            return;
+        }
         foreach (var lineX in field)
         {
             foreach (var backGroundCell in lineX)
@@ -115,12 +138,17 @@ public class GameField : MonoBehaviour
                 if (!backGroundCell.IsFree)
                 {
                     backGroundCell.CellPlayPrefab.SwipeUp();
+                    inProgress = true;
                 }
             }
         }
     }
     public void SwipeDown()
     {
+        if (inProgress)
+        {
+            return;
+        }
         foreach (var lineX in field)
         {
             foreach (var backGroundCell in lineX)
@@ -128,6 +156,7 @@ public class GameField : MonoBehaviour
                 if (!backGroundCell.IsFree)
                 {
                     backGroundCell.CellPlayPrefab.SwipeDown();
+                    inProgress = true;
                 }
             }
         }
@@ -135,7 +164,7 @@ public class GameField : MonoBehaviour
     private void SpawnBorder(int hight, int width)
     {
         var leftBorder = Instantiate(borderPrefab);
-        Vector3 leftPos = new Vector3(-(width/2f)-0.5f,0,0);
+        Vector3 leftPos = new Vector3(-(width / 2f) - 0.5f, 0, 0);
         leftBorder.transform.position = leftPos;
         Vector3 leftScale = new Vector3(1, hight, 1);
         leftBorder.transform.localScale = leftScale;
@@ -149,15 +178,35 @@ public class GameField : MonoBehaviour
         var upBorder = Instantiate(borderPrefab);
         Vector3 upPos = new Vector3(0, hight / 2f + 0.5f, 0);
         upBorder.transform.position = upPos;
-        Vector3 upScale = new Vector3(width+2f, 1, 1);
+        Vector3 upScale = new Vector3(width + 2f, 1, 1);
         upBorder.transform.localScale = upScale;
 
         var downBorder = Instantiate(borderPrefab);
         Vector3 downPos = new Vector3(0, -(hight / 2f + 0.5f), 0);
         downBorder.transform.position = downPos;
-        Vector3 downScale = new Vector3(width+2f, 1, 1);
+        Vector3 downScale = new Vector3(width + 2f, 1, 1);
         downBorder.transform.localScale = downScale;
 
 
     }
+    private bool FinishTurn()
+    {
+        foreach (var line in field)
+        {
+            foreach (var cell in line)
+            {
+                if (cell.IsFree)
+                {
+                    continue;
+                }
+                if (cell.CellPlayPrefab.IsMoving())
+                {
+                    return false;
+                }
+            }
+        }
+        inProgress = false;
+        return true;
+    }
 }
+

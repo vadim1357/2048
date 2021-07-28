@@ -332,7 +332,7 @@ MonoBehaviour:
   cellPlayPrefab: {fileID: -73083986165951577, guid: dbc4c4bf14478ef409e17b791e0c4a5b, type: 3}
   height: 4
   width: 4
-  countStartCell: 2
+  countStartCell: 7
   borderPrefab: {fileID: 5597514943584920925, guid: ba336070d0b50f54ba15d0e8e2d39ab4, type: 3}
 --- !u!4 &1147989603
 Transform:

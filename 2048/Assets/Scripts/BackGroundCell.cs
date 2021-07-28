@@ -13,13 +13,33 @@ public class BackGroundCell : MonoBehaviour
             return CellPlayPrefab == null; 
         }
     }
-    private void OnTriggerEnter(Collider collision)
+    private void Update()
     {
-        if(collision.gameObject.tag == "CellPlay")
+        
+        if (!IsFree && !CellPlayPrefab.IsMoving())
+        {
+            Vector3 curPosition = transform.position;
+            curPosition.z -= 0.1f;
+            CellPlayPrefab.transform.localPosition = curPosition;
+        }
+    }
+    private void OnTriggerStay(Collider collision)
+    {
+        if(IsFree &&  collision.gameObject.tag == "CellPlay")
         {
             CellPlayPrefab = collision.gameObject.GetComponent<CellPlay>();
         }
     }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (!IsFree && collision.gameObject == CellPlayPrefab.gameObject)
+        {
+            CellPlayPrefab = null;
+        }
+    }
+
+
     public void AttachCellPlay(CellPlay cell)
     {
         CellPlayPrefab = cell;
