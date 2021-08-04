@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  [SerializeField] private  Button startGameButton;
+    private void BeginPlay()
     {
+        SceneManager.LoadScene(1);
+    }
+    private void Awake()
+    {
+        startGameButton.onClick.AddListener(BeginPlay);
+
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
