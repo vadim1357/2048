@@ -12,6 +12,8 @@ public class GameField : MonoBehaviour
     private List<List<BackGroundCell>> field = new List<List<BackGroundCell>>();
     [SerializeField] private GameObject borderPrefab;
     private bool inProgress;
+    public System.Action OnNextTurn;
+    public System.Action OnGameOver;
 
 
     private void Start()
@@ -27,7 +29,31 @@ public class GameField : MonoBehaviour
     {
         if (inProgress && FinishTurn() ) 
         {
-            GenerateRandomCell();
+            if (CheckMove())
+            {
+                NextTurn();
+            }
+            else
+            {
+                if (CheckGameOver())
+                {
+                    if(OnGameOver != null)
+                    {
+                        OnGameOver();
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+    public void NextTurn()
+    {
+        GenerateRandomCell();
+        ResetCheckMove();
+        if(OnNextTurn != null)
+        {
+            OnNextTurn();
         }
     }
 
@@ -207,6 +233,33 @@ public class GameField : MonoBehaviour
         }
         inProgress = false;
         return true;
+    }
+    private bool CheckMove()
+    {
+        foreach (var lineX in field)
+        {
+            foreach (var backGroundCell in lineX)
+            {
+                if (backGroundCell.checkMove)
+                {
+                    backGroundCell.checkMove = false;
+                    return true;
+                    
+                }
+            }
+        }
+        return false;
+    }
+
+    private void ResetCheckMove()
+    {
+        foreach (var lineX in field)
+        {
+            foreach (var backGroundCell in lineX)
+            {
+                backGroundCell.checkMove = false;
+            }
+        }
     }
 }
 

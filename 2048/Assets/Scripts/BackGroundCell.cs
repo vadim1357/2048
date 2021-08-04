@@ -5,6 +5,7 @@ using UnityEngine;
 public class BackGroundCell : MonoBehaviour
 {
     [SerializeField] public  CellPlay CellPlayPrefab { get; private set; }
+    public bool checkMove;
 
     public bool IsFree 
     {
@@ -36,6 +37,7 @@ public class BackGroundCell : MonoBehaviour
         if (!IsFree && collision.gameObject == CellPlayPrefab.gameObject)
         {
             CellPlayPrefab = null;
+            checkMove = true;
         }
     }
 
