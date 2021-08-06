@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class StartGame : MonoBehaviour
+public class Start2048 : MonoBehaviour
 {
-  [SerializeField] private  Button startGameButton;
+  [SerializeField] private  Button startGame2048Button;
     private void BeginPlay()
     {
         SceneManager.LoadScene(1);
     }
     private void Awake()
     {
-        startGameButton.onClick.AddListener(BeginPlay);
+        startGame2048Button.onClick.AddListener(BeginPlay);
 
         
     }

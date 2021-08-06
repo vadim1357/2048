@@ -18,19 +18,23 @@ public class Bot : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while (true)
         {
-            int randomNumber = Random.RandomRange(0, 3);
+            int randomNumber = Random.RandomRange(0, 4);
             switch (randomNumber)
             {
                 case 0:
+                    
                     gameField.SwipeLeft();
                     break;
                 case 1:
+                    
                     gameField.SwipeRight();
                     break;
                 case 2:
+                    
                     gameField.SwipeUp();
                     break;
-                case 3:
+                default:
+                    
                     gameField.SwipeDown();
                     break;
 

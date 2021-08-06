@@ -23,7 +23,17 @@ public class CellPlay : MonoBehaviour
     }
     private void OnEnable()
     {
-        index = 0;
+        int rn = Random.Range(0, 5);
+        Debug.Log(rn);
+        if (rn == 1)
+        {
+            index = 1;
+        }
+        else
+        {
+            index = 0;
+        }
+        
         ApplyStyle(index);
     }
     private void Update()
@@ -39,23 +49,23 @@ public class CellPlay : MonoBehaviour
     }
     public void SwipeLeft()
     {
-        rigid.velocity = Vector3.left*10;
-        Velocity = Vector3.left * 10;
+        rigid.velocity = Vector3.left*13;
+        Velocity = Vector3.left * 13;
     }
     public void SwipeRight()
     {
-        rigid.velocity = Vector3.right * 10;
-        Velocity = Vector3.right * 10;
+        rigid.velocity = Vector3.right * 13;
+        Velocity = Vector3.right * 13;
     }
     public void SwipeUp()
     {
-        rigid.velocity = Vector3.up * 10;
-        Velocity = Vector3.up * 10;
+        rigid.velocity = Vector3.up * 13;
+        Velocity = Vector3.up * 13;
     }
     public void SwipeDown()
     {
-        rigid.velocity = Vector3.down * 10;
-        Velocity = Vector3.down * 10;
+        rigid.velocity = Vector3.down * 13;
+        Velocity = Vector3.down * 13;
     }
     public void ApplyStyle(int styleIndex)
     {

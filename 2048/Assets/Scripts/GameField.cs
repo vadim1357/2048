@@ -202,15 +202,15 @@ public class GameField : MonoBehaviour
         rightBorder.transform.localScale = rightScale;
 
         var upBorder = Instantiate(borderPrefab);
-        Vector3 upPos = new Vector3(0, hight / 2f + 0.5f, 0);
+        Vector3 upPos = new Vector3(0, hight / 2f + 0.25f, 0);
         upBorder.transform.position = upPos;
-        Vector3 upScale = new Vector3(width + 2f, 1, 1);
+        Vector3 upScale = new Vector3(width + 2f, 0.5f, 1);
         upBorder.transform.localScale = upScale;
 
         var downBorder = Instantiate(borderPrefab);
-        Vector3 downPos = new Vector3(0, -(hight / 2f + 0.5f), 0);
+        Vector3 downPos = new Vector3(0, -(hight / 2f + 0.25f), 0);
         downBorder.transform.position = downPos;
-        Vector3 downScale = new Vector3(width + 2f, 1, 1);
+        Vector3 downScale = new Vector3(width + 2f, 0.5f, 1);
         downBorder.transform.localScale = downScale;
 
 
