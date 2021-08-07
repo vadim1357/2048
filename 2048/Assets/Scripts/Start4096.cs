@@ -10,6 +10,7 @@ public class Start4096 : MonoBehaviour
     private void BeginPlay()
     {
         SceneManager.LoadScene(2);
+
     }
     private void Awake()
     {

@@ -5,11 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Start2048 : MonoBehaviour
+
 {
-  [SerializeField] private  Button startGame2048Button;
+    [SerializeField] private Transition transition;
+    [SerializeField] private  Button startGame2048Button;
     private void BeginPlay()
     {
+        transition.Change();
         SceneManager.LoadScene(1);
+
     }
     private void Awake()
     {
@@ -17,5 +21,5 @@ public class Start2048 : MonoBehaviour
 
         
     }
-
+   
 }

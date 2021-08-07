@@ -27,6 +27,7 @@ public class GameField : MonoBehaviour
     }
     private void Update()
     {
+        
         if (inProgress && FinishTurn() ) 
         {
             if (CheckMove())
