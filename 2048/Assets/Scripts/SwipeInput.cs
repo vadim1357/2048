@@ -38,7 +38,7 @@ public  class SwipeInput : MonoBehaviour
                 Vector2 canceledTouch = currentTouch.position;
                 var dx = beginPositionTouch.x - canceledTouch.x;
                 var dy = beginPositionTouch.y - canceledTouch.y;
-                if (Mathf.Abs(dx) >= Mathf.Abs(dy))
+                if (Mathf.Abs(dx) >= Mathf.Abs(dy) && Mathf.Abs(dx) >= 500)
                 {
                     if (dx < 0)
                     {
@@ -49,7 +49,7 @@ public  class SwipeInput : MonoBehaviour
                         lastSwipe = SwipeType.Left;
                     }
                 }
-                else
+                else if (Mathf.Abs(dx) <= Mathf.Abs(dy) && Mathf.Abs(dy) >= 500)
                 {
                     if (dy < 0)
                     {

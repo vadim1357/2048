@@ -8,12 +8,9 @@ public class RestartLvl : MonoBehaviour
 {
     [SerializeField] private Button restartLvl;
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+   
     private void Awake()
     {
-        restartLvl.onClick.AddListener(Restart);
+        restartLvl.onClick.AddListener(() => { Transition.Instance.Change(SceneManager.GetActiveScene().buildIndex); });
     }
 }

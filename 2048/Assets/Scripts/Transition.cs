@@ -2,28 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Transition : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D transition;
-    private Vector3 velocity = Vector3.up * 100;
-    private int curPosition = 0;
-    private Vector3 finishPosition = new Vector3(0, 5000, 0);
-    private Vector3 startPosition = new Vector3(0, -3000, 0);
+    public static Transition Instance { get; private set; } = null;
+
+    [SerializeField] Animator animator;
+    private bool animationReady;
+
     private void Awake()
     {
-       
-    }
-    private void Update()
-    {
-       if(transition.transform.localPosition == finishPosition)
+        if(Instance == null)
         {
-            transition.velocity = Vector3.zero;
+            Instance = this;
+            DontDestroyOnLoad(this.transform.parent.gameObject);
         }
-       
+        else
+        {
+            Destroy(this.transform.parent.gameObject);
+        }
+        
     }
-    public void Change()
+    public void SetAnimationReady()
     {
-        transition.transform.position += velocity * Time.deltaTime;
+        animationReady = true;
+    }
+    public void Change(int sceneIndex)
+    {
+        StartCoroutine(LoadYourAsyncScene(sceneIndex));
+        animator.SetBool("start",true);
+    }
+
+    IEnumerator LoadYourAsyncScene(int sceneIndex)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone && !animationReady)
+        {
+            yield return null;
+        }
+        asyncLoad.allowSceneActivation = true;
+        animationReady = false;
+        animator.SetBool("start", false);
+
     }
 }
