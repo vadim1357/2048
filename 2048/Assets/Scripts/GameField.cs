@@ -7,6 +7,7 @@ public class GameField : MonoBehaviour
     [SerializeField] private BackGroundCell cellPrefab;
     [SerializeField] private CellPlay cellPlayPrefab;
     [SerializeField] private int height;
+    
     [SerializeField] private int width;
     [SerializeField] private int countStartCell;
     private List<List<BackGroundCell>> field = new List<List<BackGroundCell>>();
@@ -30,9 +31,11 @@ public class GameField : MonoBehaviour
         
         if (inProgress && FinishTurn() ) 
         {
-            if (CheckMove())
+            if (CheckMove() || Merge.checkMerge)
             {
                 NextTurn();
+                Merge.checkMerge = false;
+                
             }
             else
             {
@@ -213,8 +216,6 @@ public class GameField : MonoBehaviour
         downBorder.transform.position = downPos;
         Vector3 downScale = new Vector3(width + 2f, 0.5f, 1);
         downBorder.transform.localScale = downScale;
-
-
     }
     private bool FinishTurn()
     {
@@ -244,6 +245,8 @@ public class GameField : MonoBehaviour
                 if (backGroundCell.checkMove)
                 {
                     backGroundCell.checkMove = false;
+                    
+
                     return true;
                     
                 }

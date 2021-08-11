@@ -10,10 +10,11 @@ public class CellPlay : MonoBehaviour
     [SerializeField] private Rigidbody rigid;
 
     [SerializeField] private List<CellStyle> cellStyles;
+    [SerializeField] private int speed;
 
     public Vector3 Velocity { get; private set; }
 
-    private int index;
+    public int index;
     public int PowerOfTwo 
     {
         get
@@ -49,23 +50,23 @@ public class CellPlay : MonoBehaviour
     }
     public void SwipeLeft()
     {
-        rigid.velocity = Vector3.left*10;
-        Velocity = Vector3.left * 10;
+        rigid.velocity = Vector3.left*speed;
+        Velocity = Vector3.left * speed;
     }
     public void SwipeRight()
     {
-        rigid.velocity = Vector3.right * 10;
-        Velocity = Vector3.right * 10;
+        rigid.velocity = Vector3.right * speed;
+        Velocity = Vector3.right * speed;
     }
     public void SwipeUp()
     {
-        rigid.velocity = Vector3.up * 10;
-        Velocity = Vector3.up * 10;
+        rigid.velocity = Vector3.up * speed;
+        Velocity = Vector3.up * speed;
     }
     public void SwipeDown()
     {
-        rigid.velocity = Vector3.down * 10;
-        Velocity = Vector3.down * 10;
+        rigid.velocity = Vector3.down * speed;
+        Velocity = Vector3.down * speed;
     }
     public void ApplyStyle(int styleIndex)
     {

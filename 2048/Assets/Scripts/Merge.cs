@@ -5,8 +5,8 @@ using UnityEngine;
 public class Merge : MonoBehaviour
 {
     [SerializeField] private CellPlay cell;
-
-
+    public static bool checkMerge;
+    
     private void OnCollisionEnter(Collision collision)
     {
         CellPlay anotherPlayCell = collision.gameObject.GetComponent<CellPlay>();
@@ -16,7 +16,9 @@ public class Merge : MonoBehaviour
             {
                 if (IsIMergeSource(anotherPlayCell))
                 {
+                    checkMerge = true;
                     MergeTo(anotherPlayCell);
+                    
                 }
             }
         }
@@ -26,7 +28,9 @@ public class Merge : MonoBehaviour
     
     private void MergeTo(CellPlay cell)
     {
+        
         cell.NextIndex();
+        HUD.score += CountScoreCurCell(cell.index);
         Destroy(this.gameObject);
     }
     private bool IsIMergeSource(CellPlay anotherCell)
@@ -49,6 +53,16 @@ public class Merge : MonoBehaviour
         }
 
         return false;
+    }
+
+    private int CountScoreCurCell(int index)
+    {
+        int score = 1;
+        for(int i = 0; i <= index; i++)
+        {
+            score *= 2;
+        }
+        return score;
     }
     
    

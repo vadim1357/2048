@@ -11,6 +11,8 @@ public class RestartLvl : MonoBehaviour
    
     private void Awake()
     {
+       
         restartLvl.onClick.AddListener(() => { Transition.Instance.Change(SceneManager.GetActiveScene().buildIndex); });
+
     }
 }

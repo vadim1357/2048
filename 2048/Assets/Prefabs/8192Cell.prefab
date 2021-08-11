@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -73083986165951577}
   - component: {fileID: 6058791908023922768}
   m_Layer: 0
-  m_Name: Cell
+  m_Name: 8192Cell
   m_TagString: CellPlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,13 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5238537165624085072}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!33 &411194107426584112
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -151,6 +151,8 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - material: {fileID: 2100000, guid: 2f42955203e3da44fb4debfebc2d7dd2, type: 2}
     color: {r: 1, g: 1, b: 1, a: 1}
+  speed: 14
+  index: 0
 --- !u!114 &6058791908023922768
 MonoBehaviour:
   m_ObjectHideFlags: 0
