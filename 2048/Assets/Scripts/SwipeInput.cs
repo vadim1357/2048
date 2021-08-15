@@ -85,6 +85,7 @@ public  class SwipeInput : MonoBehaviour
     private int TouchCount()
     {
 #if UNITY_EDITOR
+
         if(Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
         {
             return 1;

@@ -5,13 +5,13 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] GameField gameField;
-    
+
     void Start()
     {
-        
+
     }
 
-    
+
     void Update()
     {
         ProcessInputKeyboard();
@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     }
     private void ProcessInputKeyboard()
     {
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             gameField.SwipeLeft();
@@ -36,25 +37,29 @@ public class InputManager : MonoBehaviour
             gameField.SwipeDown();
         }
 
+
     }
 
     private void ProcessInputTouch()
     {
+
         if (SwipeInput.Left())
         {
             gameField.SwipeLeft();
         }
-        if (SwipeInput.Right())
+        else if (SwipeInput.Right())
         {
             gameField.SwipeRight();
         }
-        if (SwipeInput.Up())
+        else if (SwipeInput.Up())
         {
             gameField.SwipeUp();
         }
-        if (SwipeInput.Down())
+        else if (SwipeInput.Down())
         {
             gameField.SwipeDown();
         }
+
+
     }
 }

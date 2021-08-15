@@ -8,7 +8,7 @@ public class GameField : MonoBehaviour
     [SerializeField] private BackGroundCell cellPrefab;
     [SerializeField] private CellPlay cellPlayPrefab;
     [SerializeField] private int height;
-
+    [SerializeField] private int winIndex;
     [SerializeField] private int width;
     [SerializeField] private int countStartCell;
     private List<List<BackGroundCell>> field = new List<List<BackGroundCell>>();
@@ -16,6 +16,8 @@ public class GameField : MonoBehaviour
     private bool inProgress;
     public System.Action OnNextTurn;
     public System.Action OnGameOver;
+    public System.Action OnWinGame;
+    private bool GO;
 
 
     private void Start()
@@ -29,7 +31,10 @@ public class GameField : MonoBehaviour
     }
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GO = true;
+        }
         if (inProgress && FinishTurn())
         {
             if (CheckMove() || Merge.checkMerge)
@@ -45,13 +50,20 @@ public class GameField : MonoBehaviour
     {
         
         GenerateRandomCell();
-        if (CheckIndexAtGameOver())
+        if (CheckIndexAtGameOver() || GO)
         {
             if (OnGameOver != null)
             {
                 OnGameOver();
             }
 
+        }
+        if (CheckWin())
+        {
+            if(OnWinGame != null)
+            {
+                OnWinGame();
+            }
         }
         ResetCheckMove();
         if (OnNextTurn != null)
@@ -121,6 +133,10 @@ public class GameField : MonoBehaviour
     }
     public void SwipeLeft()
     {
+        if (CheckWin() || CheckIndexAtGameOver())
+        {
+            return;
+        }
         if (inProgress)
         {
             return;
@@ -139,6 +155,10 @@ public class GameField : MonoBehaviour
     }
     public void SwipeRight()
     {
+        if (CheckWin() || CheckIndexAtGameOver())
+        {
+            return;
+        }
         if (inProgress)
         {
             return;
@@ -157,6 +177,10 @@ public class GameField : MonoBehaviour
     }
     public void SwipeUp()
     {
+        if (CheckWin() || CheckIndexAtGameOver())
+        {
+            return;
+        }
         if (inProgress)
         {
             return;
@@ -175,6 +199,10 @@ public class GameField : MonoBehaviour
     }
     public void SwipeDown()
     {
+        if(CheckWin() || CheckIndexAtGameOver())
+        {
+            return;
+        }
         if (inProgress)
         {
             return;
@@ -271,7 +299,7 @@ public class GameField : MonoBehaviour
         throw new System.NotImplementedException();
     }
 
-    private bool CheckIndexAtGameOver()
+    public bool CheckIndexAtGameOver()
     {
         for (int i = 0; i < field.Count; i++)
         {
@@ -326,9 +354,26 @@ public class GameField : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log("GameOver");
         return true;
+    }
+
+    public bool CheckWin()
+    {
+        foreach(List<BackGroundCell> lineX in field)
+        {
+            foreach(BackGroundCell cell in lineX)
+            {
+                if(cell.CellPlayPrefab != null)
+                {
+                    if (cell.CellPlayPrefab.index == winIndex)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }
 

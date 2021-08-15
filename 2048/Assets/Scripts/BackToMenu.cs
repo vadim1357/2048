@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class BackToMenu : MonoBehaviour
 {
-    [SerializeField] private Button backToMenu;
+    public Button backToMenu;
     
     private void Awake()
     {

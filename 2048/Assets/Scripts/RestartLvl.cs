@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RestartLvl : MonoBehaviour
 {
-    [SerializeField] private Button restartLvl;
+    public Button restartLvl;
 
    
     private void Awake()

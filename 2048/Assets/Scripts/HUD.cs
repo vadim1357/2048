@@ -9,6 +9,8 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameField gamefield;
+    [SerializeField] private RestartLvl restartLvl;
+    [SerializeField] private BackToMenu backToMenu;
     
     
     private int minutes;
@@ -56,9 +58,14 @@ public class HUD : MonoBehaviour
 
 
     }
-    public void StopTimer()
+    public void OffFirstScene()
     {
         StopAllCoroutines();
+        restartLvl.restartLvl.gameObject.SetActive(false);
+        backToMenu.backToMenu.gameObject.SetActive(false);
+        counTurnText.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+
     }
     
 
