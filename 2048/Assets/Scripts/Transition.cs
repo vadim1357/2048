@@ -30,7 +30,7 @@ public class Transition : MonoBehaviour
     }
     public void Change(int sceneIndex)
     {
-        HUD.score = 0;
+       
         StartCoroutine(LoadYourAsyncScene(sceneIndex));
         animator.SetBool("start",true);
     }

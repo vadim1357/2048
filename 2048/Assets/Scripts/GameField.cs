@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GameField : MonoBehaviour
 {
+    public static GameField Instance;
     [SerializeField] private BackGroundCell cellPrefab;
     [SerializeField] private CellPlay cellPlayPrefab;
     [SerializeField] private int height;
-    
+
     [SerializeField] private int width;
     [SerializeField] private int countStartCell;
     private List<List<BackGroundCell>> field = new List<List<BackGroundCell>>();
@@ -28,34 +29,32 @@ public class GameField : MonoBehaviour
     }
     private void Update()
     {
-        
-        if (inProgress && FinishTurn() ) 
+
+        if (inProgress && FinishTurn())
         {
             if (CheckMove() || Merge.checkMerge)
             {
                 NextTurn();
                 Merge.checkMerge = false;
-                
+
             }
-            else
-            {
-                if (CheckGameOver())
-                {
-                    if(OnGameOver != null)
-                    {
-                        OnGameOver();
-                    }
-                    
-                }
-            }
-            
+           
         }
     }
     public void NextTurn()
     {
+        
         GenerateRandomCell();
+        if (CheckIndexAtGameOver())
+        {
+            if (OnGameOver != null)
+            {
+                OnGameOver();
+            }
+
+        }
         ResetCheckMove();
-        if(OnNextTurn != null)
+        if (OnNextTurn != null)
         {
             OnNextTurn();
         }
@@ -106,17 +105,18 @@ public class GameField : MonoBehaviour
     }
     public bool CheckGameOver()
     {
-        foreach (var lineX in field)
+
+        for (int i = 0; i < field.Count; i++)
         {
-            foreach (var backGroundCell in lineX)
+
+            for (int j = 0; j < field[i].Count; j++)
             {
-                if (backGroundCell.IsFree)
+                if (field[i][j].IsFree)
                 {
                     return false;
                 }
             }
         }
-
         return true;
     }
     public void SwipeLeft()
@@ -245,10 +245,10 @@ public class GameField : MonoBehaviour
                 if (backGroundCell.checkMove)
                 {
                     backGroundCell.checkMove = false;
-                    
+
 
                     return true;
-                    
+
                 }
             }
         }
@@ -264,6 +264,71 @@ public class GameField : MonoBehaviour
                 backGroundCell.checkMove = false;
             }
         }
+    }
+
+    public void RepeatLastSwipe()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private bool CheckIndexAtGameOver()
+    {
+        for (int i = 0; i < field.Count; i++)
+        {
+            for (int j = 0; j < field[i].Count; j++)
+            {
+                if (field[i][j].CellPlayPrefab != null)
+                {
+                    if (j + 1 < field[i].Count)
+                    {
+                        if (field[i][j + 1].CellPlayPrefab == null)
+                        {
+                            return false;
+                        }
+                        else if (field[i][j].CellPlayPrefab.index == field[i][j + 1].CellPlayPrefab.index)
+                        {
+                            return false;
+                        }
+                    }
+                    if (j - 1 >= 0)
+                    {
+                        if (field[i][j - 1].CellPlayPrefab == null)
+                        {
+                            return false;
+                        }
+                        else if (field[i][j].CellPlayPrefab.index == field[i][j - 1].CellPlayPrefab.index)
+                        {
+                            return false;
+                        }
+                    }
+                    if (i + 1 < field.Count)
+                    {
+                        if (field[i + 1][j].CellPlayPrefab == null)
+                        {
+                            return false;
+                        }
+                        else if (field[i][j].CellPlayPrefab.index == field[i + 1][j].CellPlayPrefab.index)
+                        {
+                            return false;
+                        }
+                    }
+                    if (i - 1 >= 0)
+                    {
+                        if (field[i - 1][j].CellPlayPrefab == null)
+                        {
+                            return false;
+                        }
+                        else if (field[i][j].CellPlayPrefab.index == field[i - 1][j].CellPlayPrefab.index)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        Debug.Log("GameOver");
+        return true;
     }
 }
 

@@ -9,10 +9,11 @@ public class HUD : MonoBehaviour
     [SerializeField] private Text timeText;
     [SerializeField] private Text scoreText;
     [SerializeField] private GameField gamefield;
-    private int countTurn;
+    
+    
     private int minutes;
     private int seconds;
-    public static int score;
+    
     private void Awake()
     {
         
@@ -24,12 +25,12 @@ public class HUD : MonoBehaviour
    
     private void UpdateCountTurn()
     {
-        countTurn++;
-        counTurnText.text =countTurn.ToString();
+        
+        counTurnText.text =GameSession.Instance.CountTurn.ToString();
     }
     private void UpdateScore()
     {
-        scoreText.text = score.ToString();
+        scoreText.text = GameSession.Instance.Score.ToString();
     }
     IEnumerator Timer()
     {
@@ -54,6 +55,10 @@ public class HUD : MonoBehaviour
         }
 
 
+    }
+    public void StopTimer()
+    {
+        StopAllCoroutines();
     }
     
 

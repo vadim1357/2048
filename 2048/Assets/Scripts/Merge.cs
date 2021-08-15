@@ -16,8 +16,11 @@ public class Merge : MonoBehaviour
             {
                 if (IsIMergeSource(anotherPlayCell))
                 {
+
                     checkMerge = true;
                     MergeTo(anotherPlayCell);
+
+
                     
                 }
             }
@@ -30,7 +33,8 @@ public class Merge : MonoBehaviour
     {
         
         cell.NextIndex();
-        HUD.score += CountScoreCurCell(cell.index);
+        GameSession.Instance.AddScore(CountScoreCurCell(cell.index));
+        
         Destroy(this.gameObject);
     }
     private bool IsIMergeSource(CellPlay anotherCell)

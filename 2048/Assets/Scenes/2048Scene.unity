@@ -151,7 +151,6 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -991,7 +990,6 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1312,6 +1310,7 @@ GameObject:
   - component: {fileID: 2055679695}
   - component: {fileID: 2055679694}
   - component: {fileID: 2055679696}
+  - component: {fileID: 2055679697}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1358,3 +1357,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f5d9a3bb99d5e4d95f377320a65c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2055679697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2055679693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f25a465a66fba4459995517fd6a17f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameField: {fileID: 1147989602}
+  score: 0
