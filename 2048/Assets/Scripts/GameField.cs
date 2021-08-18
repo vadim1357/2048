@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameField : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameField : MonoBehaviour
     public System.Action OnNextTurn;
     public System.Action OnGameOver;
     public System.Action OnWinGame;
+    [SerializeField] private bool startScene;
     private bool GO;
 
 
@@ -52,6 +54,10 @@ public class GameField : MonoBehaviour
         GenerateRandomCell();
         if (CheckIndexAtGameOver() || GO)
         {
+            if (startScene)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
             if (OnGameOver != null)
             {
                 OnGameOver();
@@ -60,7 +66,11 @@ public class GameField : MonoBehaviour
         }
         if (CheckWin())
         {
-            if(OnWinGame != null)
+            if (startScene)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            if (OnWinGame != null)
             {
                 OnWinGame();
             }
