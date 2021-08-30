@@ -19,7 +19,7 @@ public class GameField : MonoBehaviour
     public System.Action OnGameOver;
     public System.Action OnWinGame;
     [SerializeField] private bool startScene;
-    private bool GO;
+    private bool GO; // помошник, для true нажмите "H" и проиграете
 
 
     private void Start()
