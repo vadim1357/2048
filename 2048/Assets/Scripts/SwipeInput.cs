@@ -5,8 +5,8 @@ using UnityEngine;
 public  class SwipeInput : MonoBehaviour
 
 {
-    private SwipeType lastSwipe  = SwipeType.NoSwipe;
-    enum SwipeType 
+    public SwipeType lastSwipe  = SwipeType.NoSwipe;
+    public enum SwipeType 
     {
         Left = 1,
         Right = 2,
@@ -15,7 +15,7 @@ public  class SwipeInput : MonoBehaviour
         NoSwipe = 5
     };
     private Vector2 beginPositionTouch;
-    private static SwipeInput Instance;
+    public static SwipeInput Instance;
     private void Awake()
     {
         Instance = this;
@@ -85,6 +85,7 @@ public  class SwipeInput : MonoBehaviour
     private int TouchCount()
     {
 #if UNITY_EDITOR
+
         if(Input.GetMouseButton(0) || Input.GetMouseButtonUp(0))
         {
             return 1;

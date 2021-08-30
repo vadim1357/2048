@@ -7,6 +7,7 @@ public class Merge : MonoBehaviour
     [SerializeField] private CellPlay cell;
     public static bool checkMerge;
     
+
     private void OnCollisionEnter(Collision collision)
     {
         CellPlay anotherPlayCell = collision.gameObject.GetComponent<CellPlay>();
@@ -16,7 +17,9 @@ public class Merge : MonoBehaviour
             {
                 if (IsIMergeSource(anotherPlayCell))
                 {
+
                     checkMerge = true;
+                    
                     MergeTo(anotherPlayCell);
                     
                 }
@@ -25,12 +28,17 @@ public class Merge : MonoBehaviour
         
     }
 
-    
+    private void OnDestroy()
+    {
+        RepeateSwipe();
+    }
     private void MergeTo(CellPlay cell)
     {
         
         cell.NextIndex();
-        HUD.score += CountScoreCurCell(cell.index);
+        GameSession.Instance.AddScore(CountScoreCurCell(cell.index));
+        
+
         Destroy(this.gameObject);
     }
     private bool IsIMergeSource(CellPlay anotherCell)
@@ -63,6 +71,27 @@ public class Merge : MonoBehaviour
             score *= 2;
         }
         return score;
+    }
+    private void RepeateSwipe()
+    {
+        
+        switch (SwipeInput.Instance.lastSwipe)
+        {
+            case SwipeInput.SwipeType.Left:
+                GameField.Instance.SwipeLeft();
+                break;
+            case SwipeInput.SwipeType.Right:
+                GameField.Instance.SwipeRight();
+                break;
+            case SwipeInput.SwipeType.Up:
+                GameField.Instance.SwipeUp();
+                break;
+            case SwipeInput.SwipeType.Down:
+                GameField.Instance.SwipeDown();
+                break;
+
+        }
+       
     }
     
    
